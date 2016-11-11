@@ -1,6 +1,41 @@
 "use strict";
 
 
+function pieChart() {
+	//circle progress bar
+	if ((jQuery().easyPieChart) && (jQuery.support.leadingWhitespace)) {
+		var count = 0;
+		var colors = ['#4D91BA', '#5FCCA3', '#FFBB19'];
+		jQuery('.chart').each(function () {
+
+			var imagePos = jQuery(this).offset().top;
+			var topOfWindow = jQuery(window).scrollTop();
+			if (imagePos < topOfWindow + 900) {
+
+				jQuery(this).easyPieChart({
+					barColor: colors[count],
+					trackColor: '#e4e4e4',
+					scaleColor: false,
+					scaleLength: false,
+					lineCap: 'butt',
+					lineWidth: 4,
+					size: 180,
+					rotate: 0,
+					animate: 3000,
+					onStep: function (from, to, percent) {
+						jQuery(this.el).find('.percent').text(Math.round(percent));
+					}
+				});
+			}
+			count++;
+			if (count >= colors.length) {
+				count = 0
+			};
+		});
+	}
+}
+
+
 
 jQuery(document).ready(function () {
 	///////////
@@ -552,12 +587,3 @@ var currentYear = new Date();
 var year = currentYear.getFullYear();
 var footerYear = document.querySelector("#current-year");
 footerYear.innerHTML = year;
-console.log(footerYear.innerHTML);
-
-/*Show Image on load*/
-
-//function showImage() {
-//
-//	console.log(this);
-//
-//}
